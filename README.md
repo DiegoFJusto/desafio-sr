@@ -41,3 +41,16 @@ git commit -m "mensagem do commit"
 
 # Subir alterações para o GitHub
 git push
+
+# Compilar TypeScript para JS
+npm run build
+
+# Ver o que será criado/alterado
+cdk diff
+
+# Deploy na AWS
+cdk deploy
+
+# Remover recursos da AWS
+cdk destroy
+
