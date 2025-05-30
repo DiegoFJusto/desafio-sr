@@ -1,18 +1,44 @@
-# Welcome to your CDK TypeScript project
+# Desafio SR - Infraestrutura com CDK (AWS)
 
-This is a blank project for CDK development with TypeScript.
+Este projeto configura a infraestrutura da aplicação utilizando **AWS CDK** com **TypeScript**.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+---
 
-## Useful commands
+## ✅ Etapas já concluídas
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `npx cdk deploy`  deploy this stack to your default AWS account/region
-* `npx cdk diff`    compare deployed stack with current state
-* `npx cdk synth`   emits the synthesized CloudFormation template
+1. Criação do repositório GitHub [`desafio-sr`](https://github.com/DiegoFJusto/desafio-sr)
+2. Setup de projeto CDK com TypeScript (`cdk init app --language typescript`)
+3. Criação de:
+   - VPC padrão
+   - Cluster ECS (Fargate)
+   - Banco de dados RDS (MySQL)
+   - Secrets para senha do banco
+   - Security Groups e Subnets
+4. Link com repositório GitHub
+5. Deploy inicial com `cdk bootstrap` e `cdk deploy`
 
-# desafio-sr
-Desafio Scoder - Analista SR
+---
 
+## 📦 Comandos úteis
+
+```bash
+# Instalar dependências
+npm install
+
+# Ver stacks disponíveis
+cdk ls
+
+# Compilar o TypeScript
+npm run build
+
+# Preparar a conta AWS (necessário apenas 1x por região)
+cdk bootstrap
+
+# Fazer deploy da infraestrutura
+cdk deploy
+
+# Ver estado atual da stack
+cdk diff
+
+# Desfazer (destroy) a infraestrutura provisionada
+cdk destroy
