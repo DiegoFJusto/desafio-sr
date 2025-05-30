@@ -5,6 +5,7 @@ import * as ecs from 'aws-cdk-lib/aws-ecs';
 import * as ecs_patterns from 'aws-cdk-lib/aws-ecs-patterns';
 import * as rds from 'aws-cdk-lib/aws-rds';
 import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
+import * as ecr from 'aws-cdk-lib/aws-ecr';
 
 export class DesafioSrInfraStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -43,6 +44,12 @@ export class DesafioSrInfraStack extends cdk.Stack {
       targetUtilizationPercent: 50,
       scaleInCooldown: cdk.Duration.seconds(60),
       scaleOutCooldown: cdk.Duration.seconds(60),
+    });
+
+    // Adicione aqui o repositório ECR
+    const ecrRepository = new ecr.Repository(this, 'DesafioSrEcrRepo', {
+      repositoryName: 'desafio-sr-app',
+      removalPolicy: cdk.RemovalPolicy.DESTROY
     });
 
     // Secret para o banco de dados

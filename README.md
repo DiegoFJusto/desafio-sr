@@ -54,3 +54,14 @@ cdk deploy
 # Remover recursos da AWS
 cdk destroy
 
+# Verificar diferenças antes do deploy
+cdk diff
+
+# Fazer deploy da stack
+cdk deploy
+
+# Checar status da stack na AWS
+cdk ls
+
+# Ver logs da aplicação ECS
+aws logs describe-log-groups
