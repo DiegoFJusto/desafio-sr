@@ -1,44 +1,43 @@
-# Desafio SR - Infraestrutura com CDK (AWS)
+# Desafio SR - Infraestrutura com CDK na AWS
 
-Este projeto configura a infraestrutura da aplicação utilizando **AWS CDK** com **TypeScript**.
+Este projeto define a infraestrutura necessária para o desafio, utilizando **AWS CDK com TypeScript**.
 
----
+## ✅ O que já foi feito
 
-## ✅ Etapas já concluídas
+- Inicialização do projeto com CDK e TypeScript (`cdk init app --language typescript`)
+- Criação de stack chamada `DesafioSrInfraStack`
+- Provisionamento de:
+  - VPC padrão
+  - Cluster ECS
+  - Banco de dados RDS MySQL
+  - Secrets Manager para armazenar credenciais do banco
+  - Auto Scaling configurado
+  - Load Balancer (ALB) configurado
+- Deploy bem-sucedido na AWS via `cdk deploy`
 
-1. Criação do repositório GitHub [`desafio-sr`](https://github.com/DiegoFJusto/desafio-sr)
-2. Setup de projeto CDK com TypeScript (`cdk init app --language typescript`)
-3. Criação de:
-   - VPC padrão
-   - Cluster ECS (Fargate)
-   - Banco de dados RDS (MySQL)
-   - Secrets para senha do banco
-   - Security Groups e Subnets
-4. Link com repositório GitHub
-5. Deploy inicial com `cdk bootstrap` e `cdk deploy`
+## 📌 O que ainda será feito
 
----
+- Criar imagem Docker da aplicação NestJS
+- Criar task definition e service no ECS apontando para a imagem
+- Configurar variáveis de ambiente e acesso ao banco MySQL
+- Configurar domínio e HTTPS (opcional)
+- Automatizar CI/CD com GitHub Actions (opcional)
+- Realizar testes de acesso e conexão ao banco via aplicação
 
-## 📦 Comandos úteis
+## 🛠 Comandos úteis
+
+### Git
 
 ```bash
-# Instalar dependências
-npm install
+# Clonar o repositório
+git clone https://github.com/DiegoFJusto/desafio-sr.git
 
-# Ver stacks disponíveis
-cdk ls
+# Verificar status local vs remoto
+git status
 
-# Compilar o TypeScript
-npm run build
+# Adicionar e commitar alterações
+git add .
+git commit -m "mensagem do commit"
 
-# Preparar a conta AWS (necessário apenas 1x por região)
-cdk bootstrap
-
-# Fazer deploy da infraestrutura
-cdk deploy
-
-# Ver estado atual da stack
-cdk diff
-
-# Desfazer (destroy) a infraestrutura provisionada
-cdk destroy
+# Subir alterações para o GitHub
+git push
