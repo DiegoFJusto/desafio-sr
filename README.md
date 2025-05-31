@@ -65,3 +65,64 @@ cdk ls
 
 # Ver logs da aplicação ECS
 aws logs describe-log-groups
+
+# Kafka Nest API
+
+Este projeto contém uma API em NestJS integrada com Apache Kafka, com objetivo de produzir e consumir mensagens via endpoints HTTP e listeners.
+
+## Tecnologias
+
+- NestJS
+- KafkaJS
+- @nestjs/microservices
+- Docker
+- AWS ECS (infra definida com CDK)
+
+## Executar localmente
+
+```bash
+docker-compose up -d      # Inicia Kafka local
+npm install               # Instala dependências
+npm run start:dev         # Roda NestJS com hot reload
+
+# 📦 Kafka NestJS API
+
+Projeto de API utilizando NestJS com integração ao Apache Kafka para comunicação assíncrona baseada em eventos.
+
+---
+
+## 🚀 Tecnologias Utilizadas
+
+- [NestJS](https://nestjs.com/)
+- [Kafka](https://kafka.apache.org/)
+- [KafkaJS](https://kafka.js.org/)
+- [Docker & Docker Compose](https://www.docker.com/)
+- [AWS](https://aws.amazon.com/) (estrutura pensada para futura implantação)
+
+---
+
+## ✅ Etapas Concluídas
+
+### 🛠️ Estruturação Inicial do Projeto
+- Inicialização do projeto com `NestJS CLI`
+- Criação do repositório no GitHub: `kafka-nest-api`
+- Configuração do controle de versão com `.gitignore`
+- Primeiro commit com estrutura básica da aplicação
+
+### 🐳 Configuração de Ambientes com Docker
+- Adição do `docker-compose.yml` contendo os serviços:
+  - **Zookeeper**
+  - **Kafka**
+- Containers sobem com `docker-compose up -d`
+- Testes com utilitário `kafkacat` ou `kafka-console-producer` (futuramente)
+
+### ⚙️ Integração Kafka com NestJS
+- Adição de suporte a Kafka no `main.ts` como microserviço
+- Configuração de `@nestjs/microservices`
+- Primeira execução com `npm run start:dev` funcionando sem erros
+
+### 💡 Testes de Rota Padrão
+- Criação do `AppController` com rota `GET /`
+- Teste local via `curl`:
+  ```bash
+  curl http://localhost:3000/
