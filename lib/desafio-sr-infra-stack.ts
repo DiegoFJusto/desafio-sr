@@ -6,6 +6,7 @@ import * as ecs_patterns from 'aws-cdk-lib/aws-ecs-patterns';
 import * as rds from 'aws-cdk-lib/aws-rds';
 import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import * as ecr from 'aws-cdk-lib/aws-ecr';
+import * as path from 'path';
 
 export class DesafioSrInfraStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -28,7 +29,7 @@ export class DesafioSrInfraStack extends cdk.Stack {
       memoryLimitMiB: 512,
       desiredCount: 1,
       taskImageOptions: {
-        image: ecs.ContainerImage.fromRegistry('public.ecr.aws/docker/library/node:18'),
+        image: ecs.ContainerImage.fromAsset(path.join(__dirname, '../app')),
         containerPort: 3000,
       },
       publicLoadBalancer: true,
