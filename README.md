@@ -126,3 +126,93 @@ Projeto de API utilizando NestJS com integração ao Apache Kafka para comunica�
 - Teste local via `curl`:
   ```bash
   curl http://localhost:3000/
+
+Kafka React Client Frontend
+Frontend em React com Vite que consome dados via Kafka. Utiliza Tailwind CSS para estilização.
+
+🚀 Tecnologias utilizadas
+React 18
+
+Vite (build tool)
+
+Tailwind CSS (CSS utilitário)
+
+Kafka (para comunicação)
+
+Node.js / npm
+
+📋 Pré-requisitos
+Node.js (versão recomendada >= 18.x)
+
+npm (versão recomendada >= 9.x)
+
+Kafka broker rodando (para comunicação do backend)
+
+Backend Kafka Client disponível e configurado
+
+🔧 Instalação e execução local
+Clone este repositório:
+
+bash
+Copiar
+Editar
+git clone <url-do-repositorio>
+cd kafka-react-client/frontend
+Instale as dependências:
+
+bash
+Copiar
+Editar
+npm install
+Configure as variáveis de ambiente caso existam (exemplo .env):
+
+env
+Copiar
+Editar
+VITE_KAFKA_BROKER=localhost:9092
+VITE_KAFKA_TOPIC=meu-topico
+Obs: Ajuste conforme a configuração do seu backend e Kafka.
+
+Rode o projeto em modo desenvolvimento:
+
+bash
+Copiar
+Editar
+npm run dev
+Abra o navegador em:
+
+arduino
+Copiar
+Editar
+http://localhost:5173/
+⚙️ Build para produção
+Para gerar os arquivos otimizados para produção:
+
+bash
+Copiar
+Editar
+npm run build
+Os arquivos ficarão na pasta dist/.
+
+🧹 Scripts disponíveis
+Script	Descrição
+npm run dev	Inicia o servidor de desenvolvimento
+npm run build	Gera build para produção
+npm run preview	Preview da build gerada
+
+📝 Configurações importantes
+O Tailwind CSS está configurado via PostCSS.
+
+O projeto usa módulos ES ( "type": "module" no package.json ).
+
+O backend Kafka precisa estar rodando e acessível conforme as variáveis de ambiente.
+
+📚 Referências úteis
+Vite
+
+React
+
+Tailwind CSS
+
+Apache Kafka
+
