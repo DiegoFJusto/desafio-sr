@@ -1,218 +1,112 @@
-# Desafio SR - Infraestrutura com CDK na AWS
+🧠 Desafio Sr. Engenheiro de Infraestrutura
 
-Este projeto define a infraestrutura necessária para o desafio, utilizando **AWS CDK com TypeScript**.
+Este projeto foi desenvolvido como resposta a um desafio técnico voltado para uma vaga de engenheiro de infraestrutura.
+A proposta envolvia a criação de uma aplicação completa, com frontend em React, backend em Node.js e Kafka como mensageria, utilizando também práticas modernas de infraestrutura com Docker e provisionamento em nuvem (AWS).
 
-## ✅ O que já foi feito
 
-- Inicialização do projeto com CDK e TypeScript (`cdk init app --language typescript`)
-- Criação de stack chamada `DesafioSrInfraStack`
-- Provisionamento de:
-  - VPC padrão
-  - Cluster ECS
-  - Banco de dados RDS MySQL
-  - Secrets Manager para armazenar credenciais do banco
-  - Auto Scaling configurado
-  - Load Balancer (ALB) configurado
-- Deploy bem-sucedido na AWS via `cdk deploy`
+🔧 Tecnologias Utilizadas
 
-## 📌 O que ainda será feito
+Frontend: React + Vite + TailwindCSS
 
-- Criar imagem Docker da aplicação NestJS
-- Criar task definition e service no ECS apontando para a imagem
-- Configurar variáveis de ambiente e acesso ao banco MySQL
-- Configurar domínio e HTTPS (opcional)
-- Automatizar CI/CD com GitHub Actions (opcional)
-- Realizar testes de acesso e conexão ao banco via aplicação
+Backend: Node.js + Express + KafkaJS
 
-## 🛠 Comandos úteis
+Mensageria: Apache Kafka
 
-### Git
+Infraestrutura: Docker, Docker Compose, AWS (EC2, S3 opcional)
 
-```bash
-# Clonar o repositório
+Banco de Dados: MySQL (provisionado, mas não utilizado diretamente na lógica atual)
+
+
+🛆 Estrutura do Projeto
+
+desafio-sr/
+│
+├── backend/            # Aplicação Node.js com Kafka
+│   └── src/
+│       └── consumer.js
+│
+├── frontend/           # Aplicação React com Vite
+│   └── src/
+│       └── components/
+│
+├── docker-compose.yml  # Orquestra containers (backend, frontend, kafka, zookeeper)
+└── README.md
+
+
+🧽 Integração entre os componentes
+
+graph LR
+A[Frontend (React)] -->|POST message| B[Backend (Node.js)]
+B -->|Produz mensagem| C[Kafka Topic]
+C -->|Consome mensagem| B
+
+Resumo da integração:
+
+O usuário envia mensagens via frontend (React).
+
+O backend (Node.js) recebe e envia a mensagem para o Kafka.
+
+O backend também consome as mensagens do Kafka para processá-las.
+
+A visualização acontece em tempo real no frontend via polling ou response.
+
+
+❓ Por que o MySQL está presente, mas não utilizado?
+
+O MySQL foi incluído no docker-compose.yml para simular um ambiente real de produção com banco de dados relacional. No entanto, o desafio proposto não exigia persistência de dados, por isso a aplicação não interage com o MySQL atualmente. Ele está disponível para evolução futura do projeto.
+
+
+🚀 Como executar o projeto localmente
+
+1. Clone o repositório
+
 git clone https://github.com/DiegoFJusto/desafio-sr.git
+cd desafio-sr
 
-# Verificar status local vs remoto
-git status
+2. Suba os containers com Docker
 
-# Adicionar e commitar alterações
-git add .
-git commit -m "mensagem do commit"
+docker-compose up --build
 
-# Subir alterações para o GitHub
-git push
+Isso criará os serviços: backend, frontend, zookeeper, kafka e mysql.
 
-# Compilar TypeScript para JS
+3. Acesse o frontend
+
+Abra o navegador e acesse:
+
+http://localhost:5173
+
+
+📆 Build para produção
+
+Se quiser fazer o build do frontend para ambiente de produção (por exemplo, deploy no S3, Vercel, etc):
+
+cd frontend
 npm run build
 
-# Ver o que será criado/alterado
-cdk diff
+Os arquivos otimizados serão gerados na pasta dist/.
 
-# Deploy na AWS
-cdk deploy
 
-# Remover recursos da AWS
-cdk destroy
+📄 Scripts importantes
 
-# Verificar diferenças antes do deploy
-cdk diff
+# Rodar o frontend em modo dev
+cd frontend && npm run dev
 
-# Fazer deploy da stack
-cdk deploy
+# Rodar o backend localmente
+cd backend && npm install && node src/index.js
 
-# Checar status da stack na AWS
-cdk ls
 
-# Ver logs da aplicação ECS
-aws logs describe-log-groups
+🌐 Deploy na AWS (exemplo)
 
-# Kafka Nest API
+O projeto pode ser hospedado em uma instância EC2 com Docker ou o frontend pode ser enviado para o S3 (como site estático). O backend pode ser exposto via Nginx reverso em EC2.
 
-Este projeto contém uma API em NestJS integrada com Apache Kafka, com objetivo de produzir e consumir mensagens via endpoints HTTP e listeners.
 
-## Tecnologias
+📌 Possíveis melhorias e escalabilidade
 
-- NestJS
-- KafkaJS
-- @nestjs/microservices
-- Docker
-- AWS ECS (infra definida com CDK)
+Integração com MySQL para persistência das mensagens
 
-## Executar localmente
+Autenticação no frontend
 
-```bash
-docker-compose up -d      # Inicia Kafka local
-npm install               # Instala dependências
-npm run start:dev         # Roda NestJS com hot reload
+Exibir mensagens em tempo real via WebSocket
 
-# 📦 Kafka NestJS API
-
-Projeto de API utilizando NestJS com integração ao Apache Kafka para comunicação assíncrona baseada em eventos.
-
----
-
-## 🚀 Tecnologias Utilizadas
-
-- [NestJS](https://nestjs.com/)
-- [Kafka](https://kafka.apache.org/)
-- [KafkaJS](https://kafka.js.org/)
-- [Docker & Docker Compose](https://www.docker.com/)
-- [AWS](https://aws.amazon.com/) (estrutura pensada para futura implantação)
-
----
-
-## ✅ Etapas Concluídas
-
-### 🛠️ Estruturação Inicial do Projeto
-- Inicialização do projeto com `NestJS CLI`
-- Criação do repositório no GitHub: `kafka-nest-api`
-- Configuração do controle de versão com `.gitignore`
-- Primeiro commit com estrutura básica da aplicação
-
-### 🐳 Configuração de Ambientes com Docker
-- Adição do `docker-compose.yml` contendo os serviços:
-  - **Zookeeper**
-  - **Kafka**
-- Containers sobem com `docker-compose up -d`
-- Testes com utilitário `kafkacat` ou `kafka-console-producer` (futuramente)
-
-### ⚙️ Integração Kafka com NestJS
-- Adição de suporte a Kafka no `main.ts` como microserviço
-- Configuração de `@nestjs/microservices`
-- Primeira execução com `npm run start:dev` funcionando sem erros
-
-### 💡 Testes de Rota Padrão
-- Criação do `AppController` com rota `GET /`
-- Teste local via `curl`:
-  ```bash
-  curl http://localhost:3000/
-
-Kafka React Client Frontend
-Frontend em React com Vite que consome dados via Kafka. Utiliza Tailwind CSS para estilização.
-
-🚀 Tecnologias utilizadas
-React 18
-
-Vite (build tool)
-
-Tailwind CSS (CSS utilitário)
-
-Kafka (para comunicação)
-
-Node.js / npm
-
-📋 Pré-requisitos
-Node.js (versão recomendada >= 18.x)
-
-npm (versão recomendada >= 9.x)
-
-Kafka broker rodando (para comunicação do backend)
-
-Backend Kafka Client disponível e configurado
-
-🔧 Instalação e execução local
-Clone este repositório:
-
-bash
-Copiar
-Editar
-git clone <url-do-repositorio>
-cd kafka-react-client/frontend
-Instale as dependências:
-
-bash
-Copiar
-Editar
-npm install
-Configure as variáveis de ambiente caso existam (exemplo .env):
-
-env
-Copiar
-Editar
-VITE_KAFKA_BROKER=localhost:9092
-VITE_KAFKA_TOPIC=meu-topico
-Obs: Ajuste conforme a configuração do seu backend e Kafka.
-
-Rode o projeto em modo desenvolvimento:
-
-bash
-Copiar
-Editar
-npm run dev
-Abra o navegador em:
-
-arduino
-Copiar
-Editar
-http://localhost:5173/
-⚙️ Build para produção
-Para gerar os arquivos otimizados para produção:
-
-bash
-Copiar
-Editar
-npm run build
-Os arquivos ficarão na pasta dist/.
-
-🧹 Scripts disponíveis
-Script	Descrição
-npm run dev	Inicia o servidor de desenvolvimento
-npm run build	Gera build para produção
-npm run preview	Preview da build gerada
-
-📝 Configurações importantes
-O Tailwind CSS está configurado via PostCSS.
-
-O projeto usa módulos ES ( "type": "module" no package.json ).
-
-O backend Kafka precisa estar rodando e acessível conforme as variáveis de ambiente.
-
-📚 Referências úteis
-Vite
-
-React
-
-Tailwind CSS
-
-Apache Kafka
+Monitoramento com Prometheus e Grafana
 
