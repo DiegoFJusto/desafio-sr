@@ -110,3 +110,8 @@ Exibir mensagens em tempo real via WebSocket
 
 Monitoramento com Prometheus e Grafana
 
+
++ Fluxograma
+
+![image](https://github.com/user-attachments/assets/ef5a8b14-25fc-49ac-8fa5-f53c7b6d6a0c)
+
